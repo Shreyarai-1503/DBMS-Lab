@@ -17,21 +17,3 @@ Alter table student CHANGE dept_name deptartment_name varchar(20);
 
 iv. Delete student name whose department is NULL
 Delete from student where deptartment_name IS NULL;
-
-------------------Auto increment-------------------------
-ALTER TABLE your_table_name
-MODIFY COLUMN column_name INT AUTO_INCREMENT;
-
-ALTER TABLE your_table_name AUTO_INCREMENT = starting_value;
-
-
---------------------CONSTRAINTS------------------
-ALTER TABLE child_table
-ADD CONSTRAINT fk_constraint_name
-FOREIGN KEY (child_column)
-REFERENCES parent_table(parent_column);
-
-ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE child_table
-DROP FOREIGN KEY fk_constraint_name;
