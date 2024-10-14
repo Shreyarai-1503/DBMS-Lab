@@ -1,0 +1,32 @@
+Collection “city “ which contains the documents given as below(Perform on MongoTerminal) 
+{
+    city:”pune”,
+    type:”urban”,
+    state:”MH”,
+    population:”5600000”
+}
+
+var reducePop = function(key, values){
+    return Array.sum(values);
+}
+
+1. using mapreduce, find statewise population
+var stateMap = function(){
+    emit(this.state, parseInt(this.population));
+}
+
+db.city.mapReduce(stateMap, reducePop, {out: 'statewise_population'});
+
+2. using mapreduce, find citywise population
+var cityMap = function(){
+    emit(this.city, parseInt(this.population));
+}
+
+db.city.mapReduce(cityMap, reducePop, {out: 'citywise_population'});
+
+3. using mapreduce, find typewise population.
+var typeMap = function(){
+    emit(this.type, parseInt(this.population));
+}
+
+db.city.mapReduce(typeMap, reducePop, {out: 'typewise_population'});
