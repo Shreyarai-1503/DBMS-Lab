@@ -1,0 +1,29 @@
+Collection “movies“ which contains the documents given as below(Perform on Mongo Terminal)
+{
+    name: “Movie1”,
+    type: “action”,
+    budget:1000000
+    producer:{
+        name: “producer1”,
+        address:”PUNE”
+    }
+}
+
+use my_db
+db.createCollection("movies");
+db.movies.insert({....});
+
+i. Find the name of the movie having budget greater than 1,00,000.
+db.movies.find({budget : {$gt: 100000}}, {name : 1, _id : 0});
+
+ii. Find the name of producer who lives in Pune.
+db.movies.find({producer.address : 'Pune'}, {producer.name : 1, _id : 0});
+
+iii. Update the type of movie “action” to “horror”.
+db.movies.update({type: 'action'}, {$set : {type: 'horror'}});
+
+iv. Find all the documents produced by name “producer1” with their address.
+db.movies.find(
+    {producer.name : 'producer1'},
+    {producer: 1, _id: 0}
+)
