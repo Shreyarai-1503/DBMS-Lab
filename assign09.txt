@@ -1,0 +1,28 @@
+Collection “orderinfo“ which contains the documents given as below(Perform on MongoTerminal) {
+    cust_id:123
+    cust_name:”abc”,
+    status:”A”,
+    price:250
+}
+
+
+---i. find the average price for each customers having status 'A'
+db.orderinfo.aggregate([
+    {$match : {$status : 'A'}},
+    {$group : {
+        _id: '$sust_id',
+        avg_price : {$avg: '$price'}
+    }}
+]);
+
+---ii. Display the status of the customers whose amount/price lie between 100 and 1000
+db.orderinfo.find(
+    {price: {$gte: 100, $lte: 1000}},
+    {status: 1, cust_name: 1, _id: 0}
+);
+
+---iii. Display the customers information without “_id” .
+db.orderinfo.find({}, {_id : 0});
+
+---iv. create a simple index on onderinfo collection and fire the queries.
+db.orderinfo.createIndex({cust_id : 1});
