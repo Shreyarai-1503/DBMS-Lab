@@ -1,0 +1,54 @@
+Use MongoDB: Create Institute Database and Create Student collection
+1. RollNo 2. Student Name 3. Age 4. Branch 5. Address :{ City, State} 6. Hobbies (Array)
+{
+    RollNo: 1,
+    StudentName: "Alice",
+    Age: 16,
+    Branch: "Computer Science",
+    Address: { City: "Pune", State: "Maharashtra" },
+    Hobbies: ["Reading", "Swimming"]
+}
+
+Perform following operations
+
+
+1. Create database Institute. ----> db.createCollection('Institute');
+
+2. Create collection Students. ----> db.createCollection('Student');
+
+3. Insert 10 documents with above mentioned structure. ----> db.name.insert([{}, {}, {}]);
+
+4. Display all students’ information. ----> db.Student.find();
+
+5. Display Student information whose age is greater than 15.
+db.Student.find({Age: {$gt: 15}});
+
+6. Display Student information sorted on name field
+db.Student.find().sort({StudentName : 1});
+
+7. Update student branch Computer of RollNo 3.
+db.Student.update({Roll_No: 3}, {$set: {Branch: 'Computer'}});
+
+8. Remove document with RollNo 1
+db.Student.delete({Roll_No: 1});
+
+9. Display Student information whose name starts with A
+db.Student.find({StudentName: {$regex: /^A/, options: 'i'}});  // i - case insensitive, omit for sensitive
+
+10. Display the total numbers of documents available in collection.
+db.Students.countDocuments();
+
+11. Display only first 5 documents.
+db.Students.find().limit(5);
+
+12. Display all documents instead of first 3.
+db.Students.find().skip(3);
+
+13. Display the name of Students who live in Pune City.
+db.Student.find({Address.City: 'Pune'}, {StudentName: 1, _id: 0});
+
+14. Display only Name of all students.
+db.Students.find({}, { StudentName: 1, _id: 0 });
+
+15. Drop Collection
+db.Student.drop();
