@@ -1,0 +1,85 @@
+Use MongoDB
+Collection Student and insert following data in that:
+Rollno:1,name:'Navin',subject:'DMSA',marks:78
+
+
+Indexing
+1. Create Collection
+db.createCollection('Student');
+
+2. Insert some Documents
+db.Student.insert([{}, {}....])
+
+3. Create Single Index,
+db.Student.createIndex({Roll_No: 1});
+
+4. Create Compound Index,
+db.Student.createIndex({Roll_No: 1, marks: -1}); 1-asc, -1-desc
+
+5. Create Unique on Collection
+db.Student.createIndex({Roll_No: 1}, {unique: true});
+
+6. Show Index Information
+db.Student.getIndexes();
+
+7. Remove Index
+db.Student.dropIndex({Roll_No: 1});
+
+
+Aggregation
+
+1. Write aggregate function to find Max marks of Each Subject.
+db.Student.aggregate([
+    {$group: {
+        _id: '$subject',
+        max_marks: {$max: '$marks'}
+    }}
+]);
+
+2. Write aggregate function to find Min marks of Each Subject.
+db.Student.aggregate([
+    {$group: {
+        _id: '$subject',
+        min_marks: {$min: '$marks'}
+    }}
+]);
+
+3. Write aggregate function to find Sum of marks of Each Subject.
+db.Student.aggregate([
+    {$group: {
+        _id: '$subject',
+        total_marks: {$sum: '$marks'}
+    }}
+]);
+
+4. Write aggregate function to find Avg marks of Each Subject.
+db.Student.aggregate([
+    {$group: {
+        _id: '$subject',
+        avg_marks: {$avg: '$marks'}
+    }}
+]);
+
+5. Write aggregate function to find first record Each Subject.
+db.Student.aggregate([
+    {$group: {
+        _id: '$subject',
+        firstRecord: {$first: '$$ROOT'}  // $$ROOT - entire doc
+    }}
+]);
+
+6. Write aggregate function to find Last record of Each Subject.
+db.Student.aggregate([
+    {$group: {
+        _id: '$subject',
+        lastRecord: {$last: '$$ROOT'}
+    }}
+]);
+
+7. Write aggregate function to find count number of records of each subject
+db.Student.aggregate([
+    {$group: {
+        _id: '$subject',
+        count: {$sum: 1}
+    }}
+]);
