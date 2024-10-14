@@ -1,0 +1,37 @@
+Perform aggregation and Indexing using mongodb on below database
+
+1. Create a database department
+use department;
+
+2. Create a collection as teacher with fields as name , department ,experience and salary
+db.createCollection('teacher');
+db.teacher.insert({....});
+
+3. Display the department wise average salary.
+db.teacher.aggregate([
+    {$group :{
+        _id: '$department',
+        avgSal: {$avg: '$salary'}
+    }}
+]);
+
+4. Display the no. Of employees working in each department.
+db.teacher.aggregate([
+    {$group: {
+        _id: '$department',
+        count: {$sum: 1}
+    }}
+]);
+
+5. Display the department wise minimum salary.
+db.teacher.aggregate([
+    {$group: {
+        _id: '$department',
+        minSal: {$min: '$salary'}
+    }}
+]);
+
+6. Apply index and drop index
+db.teacher.createIndex({name: 1});
+db.teacher.getIndexes();  //to display indexes
+db.teacher.dropIndex({name: 1});
